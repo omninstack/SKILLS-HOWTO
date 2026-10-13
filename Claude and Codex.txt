@@ -1,0 +1,42 @@
+The Fastest Way to Convert a Claude Project
+
+Open the Claude-built project in Codex and paste this prompt. Codex can create the adapter files for
+you.
+
+I built this project in Claude Code and want it to also work well in Codex.
+Please inspect the project and create a Codex adapter setup.
+
+Do these things:
+
+1. Create AGENTS.md at the project root.
+- Use CLAUDE.md as the source of project knowledge.
+- Do not duplicate long sections unnecessarily.
+- Explain that AGENTS.md is the Codex-facing adapter.
+- Include a clear project map.
+
+2. Create .codex/config. toml.
+- Start with a minimal safe config.
+- Do not add secrets.
+
+3. Create .agents/skills/.
+- Copy important Claude skills from .claude/skills/ into .agents/skills/.
+- Keep each SKILL.md and supporting files together.
+- Do not put skills in .codex/skills/.
+4. Create .codex/agents/ for any important Claude agents.
+- Claude agents are .md files in .claude/agents/.
+- Codex agents are .toml files in .codex/agents/.
+- Convert the agent instructions into developer_instructions.
+5. Update .gitignore if needed.
+- Keep local overrides and secrets out of git.
+Before editing, show me the files you plan to create or change.
+
+The whole conversion idea: do not rebuild the project. Add a Codex layer beside the Claude layer.
+
+How to Maintain It
+The setup only works if both tools stay in sync. These are the habits that matter.
+
+When you update project instructions: keep CLAUDE.md and AGENTS.md aligned. Do not maintain two full copies. Pick one as the
+source of truth and make the other an adapter.
+When you create a Claude skill: also copy it to .agents/skills/ if Codex should use it.
+When you create a Claude agent: also create a matching .codex/agents/<name>. toml if Codex should spawn it.
+When you add shared knowledge: put it in docs/ , references/ , or templates/ so every tool can read the same source.
